@@ -41,31 +41,31 @@ def scrape(url):
 	script_files = []
 
 	for script in soup.find_all("script"):
-    	if script.attrs.get("src"):
-       	 # if the tag has the attribute 'src'
-        	script_url = urljoin(url, script.attrs.get("src"))
-        	script_files.append(script_url)
+		if script.attrs.get("src"):
+       	 	# if the tag has the attribute 'src'
+			script_url = urljoin(url, script.attrs.get("src"))
+			script_files.append(script_url)
 
 	# get the CSS files
 	css_files = []
 
 	for css in soup.find_all("link"):
-    	if css.attrs.get("href"):
-        	# if the link tag has the 'href' attribute
-        	css_url = urljoin(url, css.attrs.get("href"))
-        	css_files.append(css_url)
+		if css.attrs.get("href"):
+		# if the link tag has the 'href' attribute
+			css_url = urljoin(url, css.attrs.get("href"))
+			css_files.append(css_url)
         
         
 	# write file links into files
 	with open("javascript_files.txt", "w") as f:
-    	for js_file in script_files:
-    		if "/wp-content/plugins/" in js_file:
-        		print(js_file, file=f)
+		for js_file in script_files:
+			if "/wp-content/plugins/" in js_file:
+				print(js_file, file=f)
 
 	with open("css_files.txt", "w") as f:
-    	for css_file in css_files:
-    		if "/wp-content/plugins/" in css_file:
-        		print(css_file, file=f)
+		for css_file in css_files:
+			if "/wp-content/plugins/" in css_file:
+				print(css_file, file=f)
         	
 	print("Total script files in the page:", len(script_files))
 	print("Total CSS files in the page:", len(css_files))
